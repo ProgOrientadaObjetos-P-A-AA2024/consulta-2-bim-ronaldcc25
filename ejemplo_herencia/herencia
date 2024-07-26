@@ -1,0 +1,56 @@
+class Estudiante:
+    def __init__(self, nombres, apellidos, identificacion, edad):
+        self.nombres = nombres
+        self.apellidos = apellidos
+        self.identificacion = identificacion
+        self.edad = edad
+
+class EstudiantePresencial(Estudiante):
+    def __init__(self, nombres, apellidos, identificacion, edad, numero_creditos, costo_credito):
+        super().__init__(nombres, apellidos, identificacion, edad)
+        self.numero_creditos = numero_creditos
+        self.costo_credito = costo_credito
+
+    def calcular_matricula(self):
+        return self.numero_creditos * self.costo_credito
+
+class EstudianteDistancia(Estudiante):
+    def __init__(self, nombres, apellidos, identificacion, edad, numero_asignaturas, costo_asignatura):
+        super().__init__(nombres, apellidos, identificacion, edad)
+        self.numero_asignaturas = numero_asignaturas
+        self.costo_asignatura = costo_asignatura
+
+    def calcular_matricula(self):
+        return self.numero_asignaturas * self.costo_asignatura
+
+if __name__ == "__main__":
+    while True:
+        tipo_estudiante = int(input("Tipo de Estudiante a ingresar.\n1) Estudiante Presencial. \n2) Estudiante Distancia: "))
+        if tipo_estudiante not in (1, 2):
+            print("Error en la opción")
+            continue
+
+        nombres = input("Ingrese el nombre del estudiante: ")
+        apellidos = input("Ingrese el apellido del estudiante: ")
+        identificacion = input("Ingrese la identificación del estudiante: ")
+        edad = int(input("Ingrese la edad del estudiante: "))
+
+        if tipo_estudiante == 1:
+            numero_creditos = int(input("Ingrese el número de créditos del estudiante: "))
+            costo_credito = float(input("Ingrese el costo de cada crédito del estudiante: "))
+            estudiante = EstudiantePresencial(nombres, apellidos, identificacion, edad, numero_creditos, costo_credito)
+        else:
+            numero_asignaturas = int(input("Ingrese en el número de asignaturas del estudiante: "))
+            costo_asignatura = float(input("Ingrese en el costo de cada asignaturas del estudiante: "))
+            estudiante = EstudianteDistancia(nombres, apellidos, identificacion, edad, numero_asignaturas, costo_asignatura)
+
+        print(f"Datos del estudiante {tipo_estudiante if tipo_estudiante == 1 else 'Distancia'}:")
+        print(f"Nombre: {estudiante.nombres}")
+        print(f"Apellido: {estudiante.apellidos}")
+        print(f"Identificación: {estudiante.identificacion}")
+        print(f"Edad: {estudiante.edad}")
+        print(f"Matrícula final: ${estudiante.calcular_matricula():.2f}")
+
+        continuar = input("Desea ingresar más estudiantes? (S/N): ")
+        if continuar.upper() != 'S':
+            break
